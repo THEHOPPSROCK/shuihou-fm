@@ -6,7 +6,7 @@
 
 export const STATION = {
   name: '水喉FM',
-  freq: '88.8',
+  freq: '96968',
   slogan: '水嘅事，就系大事。',
   motto: '街坊嘅事，我记得。',
   signOn: '水喉FM提提你：',
