@@ -1,0 +1,22 @@
+{
+ "wanlung-raw.mp3": {
+  "dur": 24.55,
+  "f0": 112.7,
+  "p15": 90.9,
+  "p85": 149.1,
+  "kb": 144,
+  "voice": "zh-HK-WanLungNeural",
+  "rate": "+0%",
+  "pitch": "+0Hz"
+ },
+ "hiumaan-raw.mp3": {
+  "dur": 25.3,
+  "f0": 242.4,
+  "p15": 208.0,
+  "p85": 315.8,
+  "kb": 148,
+  "voice": "zh-HK-HiuMaanNeural",
+  "rate": "+0%",
+  "pitch": "+0Hz"
+ }
+}
