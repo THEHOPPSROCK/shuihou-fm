@@ -1,5 +1,7 @@
 # 水喉FM · 88.8 街坊频道
 
+**在线地址** · <https://thehoppsrock.github.io/shuihou-fm/> ｜ **仓库** · <https://github.com/THEHOPPSROCK/shuihou-fm> ｜ 托管：GitHub Pages（HTTPS）
+
 > **交付包 v1.0（2026-11-17）** —— 本包是可直接部署的手机优先静态站成品：
 > `index.html`（对话主入口）、`voice.html`（声线试镜）、`app.html`（旧链接跳转）、
 > `assets/`（样式／脚本／字库／插画／音频／动画）、`preview/`（成品截图）、`serve.cmd`（一键本机服务器）。
