@@ -6,7 +6,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { build, transform } from 'esbuild';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(HERE, '..', '..');       // dshuihou/
+const ROOT = path.resolve(HERE, '..');       // dshuihou/
 const SRC = path.join(ROOT, '_src', 'index.template.html');
 const OUT = path.join(ROOT, 'index.html');
 
@@ -43,10 +43,9 @@ const minCss = (await transform(css, { minify: true, loader: 'css', legalComment
 // ---------- 3. 静态空态（首屏不靠 JS 也能画出来） ----------
 const { SUGGESTS } = await import(pathToFileURL(path.join(ROOT, 'assets/js/data.js')).href);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const mascotB64 = b64(path.join(ROOT, 'assets/img/ip/mascot-small.webp'), 'image/webp');
 const emptyState = `<div class="empty">
     <button class="mascot" type="button" id="mascotBtn" aria-label="撳一下，睇大水喉动画">
-      <img src="${mascotB64}" alt="大水喉抱住心" fetchpriority="high">
+      <img src="assets/img/studio-welcome.png" alt="大水喉坐在转椅上，手持水杯" fetchpriority="high">
       <span class="mascot__hint">㩒一下 · 睇动画</span>
     </button>
     <h3>水喉FM，开麦啦</h3>
@@ -58,14 +57,10 @@ const emptyState = `<div class="empty">
 
 // ---------- 4. 模板替换 ----------
 let html = read(SRC);
-const logoH = b64(path.join(ROOT, 'assets/img/logo-h.svg'), 'image/svg+xml');
-const logoStack = b64(path.join(ROOT, 'assets/img/logo-stack.svg'), 'image/svg+xml');
 const favicon = b64(path.join(ROOT, 'assets/img/logo-icon.svg'), 'image/svg+xml');
 
 html = html
   .replace('__FAVICON__', favicon)
-  .replace('__LOGO_H__', logoH)
-  .replace('__LOGO_STACK__', logoStack)
   .replace('<!--EMPTY_STATE-->', emptyState)
   .replace('<!--INLINE_CSS-->', () => `<style>${minCss}</style>`)
   .replace('<!--INLINE_JS-->', () => `<script>${revealJs}\n${appJs}</script>`);
