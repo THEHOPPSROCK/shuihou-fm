@@ -924,9 +924,22 @@
   .log { padding: 16px 14px 6px; max-height: 62vh; }
   .stage__bar { flex-wrap: wrap; gap: 8px; padding: 10px 14px; }
   .stage__pills { margin-left: 0; }
-  .msg { grid-template-columns: 44px minmax(0, 1fr); }
+  .msg--dj { grid-template-columns: 44px minmax(0, 1fr); }
   .msg__ava { width: 44px; height: 44px; }
   .msg--user .msg__body { max-width: 92%; }
+  .msg--user .msg__head time { margin-left: 0; }
+  .msg--user .bubble {
+    width: fit-content;
+    max-width: 100%;
+    margin-left: auto;
+    padding: 9px 13px;
+    font-size: 15px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  .blk--text { font-size: 15px; line-height: 1.55; overflow-wrap: anywhere; }
+  .blk--text p + p { margin-top: .4em; }
+  .blk--text .sign { font-size: 16px; margin-bottom: 4px; }
   .composer { padding: 10px 12px 12px; }
 }
 
@@ -1072,9 +1085,31 @@ body.app .log { max-height: none; }
 
 /* ======================================================== 移动优先改版 */
 /* 单栏控制台：右栏已删除，左栏收进抽屉 */
-body.app .console--single { grid-template-columns: minmax(0, 1fr); }
+body.app .console--single {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  min-height: 0;
+}
+.console--single .stage__bar { flex: none; }
+@media (max-width: 860px) {
+  .console--single .stage__bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    column-gap: 6px;
+  }
+  .stage__title b { overflow: hidden; text-overflow: ellipsis; }
+  .console--single .stage__pills { flex-wrap: nowrap; }
+  .stage__clear { white-space: nowrap; }
+}
 body.app { height: 100vh; height: 100dvh; }
-.appbar__menu { flex: none; }
+.appbar__menu {
+  flex: none;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 8px;
+}
 
 /* 收纳目录 */
 .drawer { position: fixed; inset: 0; z-index: 1200; display: flex; }
