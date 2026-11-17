@@ -187,17 +187,26 @@ function initDrawer() {
 }
 
 /* --- 启动 ----------------------------------------------------------------- */
-buildTicker();
-initDrawer();
-initChat();
-initExtras();
-initDial();
-initStickerWall();
-initDialer();
-initNav();
-initKeys();
-initTilt();
-initCounters();
+function boot() {
+  buildTicker();
+  initDrawer();
+  initChat();
+  initExtras();
+  initDial();
+  initStickerWall();
+  initDialer();
+  initNav();
+  initKeys();
+  initTilt();
+  initCounters();
+}
+
+/* 首屏用静态 HTML 先画，脚本初始化排去空闲时段，缩短首屏可交互时间 */
+if (typeof requestIdleCallback === 'function') {
+  requestIdleCallback(boot, { timeout: 200 });
+} else {
+  setTimeout(boot, 0);
+}
 
 
 

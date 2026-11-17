@@ -1228,7 +1228,7 @@ export function initChat() {
 export function emptyState() {
   return `<div class="empty">
     <button class="mascot" type="button" id="mascotBtn" aria-label="撳一下，睇大水喉动画">
-      <img src="assets/img/ip/ip-20.webp" alt="大水喉抱住心">
+      <img src="assets/img/ip/mascot-small.webp" alt="大水喉抱住心">
       <span class="mascot__hint">㩒一下 · 睇动画</span>
     </button>
     <h3>水喉FM，开麦啦</h3>

@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>水喉FM · 96968 街坊频道｜「大水喉」家族 · 东莞水务环境集团文创品牌</title>
+<meta name="description" content="水喉FM 是东莞水务环境集团旗下文创品牌「大水喉」家族出品的 AI 街坊电台，「大水喉」任唯一主播兼品牌官方发言人。查停水、交水费、问水压、教节水、报维修——联网搜索、深度思考、文件解析、粤语朗读。">
+<meta name="theme-color" content="#004384">
+<link rel="icon" href="__FAVICON__" type="image/svg+xml">
+<!--INLINE_CSS-->
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
+<script>
+  /* 直接双击打开时，给个明示 */
+  if (location.protocol === 'file:') {
+    addEventListener('DOMContentLoaded', function () {
+      var b = document.createElement('div');
+      b.className = 'filewarn';
+      b.innerHTML = '<b>温馨提示</b>：直接双击打开要用本地服务器先得。请喺 dshuihou 目录运行 <code>python -m http.server 8811</code>，再开 <code>http://127.0.0.1:8811</code>。';
+      document.body.prepend(b);
+    });
+  }
+</script>
+</head>
+<body class="app">
+
+<!-- ======================================================== 精简台标 -->
+<div class="appbar">
+  <button class="icon-btn appbar__menu" id="btnMenu" type="button" aria-label="打开目录" aria-expanded="false" aria-controls="drawer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+  </button>
+  <a class="appbar__logo" href="index.html" aria-label="水喉FM">
+    <img src="__LOGO_H__" alt="大水喉 Dashuihou">
+  </a>
+  <span class="appbar__station">
+    <b>水喉FM</b><i>96968</i>
+  </span>
+  <span class="topbar__onair"><i></i>ON AIR</span>
+  <span class="spacer"></span>
+  <span class="tag" id="modePill">录播 · DEMO</span>
+  <button class="icon-btn" id="btnSettings" type="button" aria-label="设置 · 调频" title="设置 · 调频">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round">
+      <circle cx="12" cy="12" r="3.2"/>
+      <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.55-1.1 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34H9a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.55 1Z"/>
+    </svg>
+  </button>
+</div>
+
+<!-- ======================================================== 直播室 -->
+<div class="console console--full console--single">
+
+
+  <!-- 中栏：对话 -->
+  <div class="stage">
+    <div class="stage__bar">
+      <div class="stage__title"><span>LIVE STUDIO</span><b id="stageTitle">街坊会话</b></div>
+      <span class="tag tag--ghost" id="titleTag" style="opacity:0">自动命名</span>
+      <div class="stage__pills">
+        <span class="tag tag--ghost" title="内容安全 · safety_check">安全播出</span>
+        <button class="stage__clear" id="btnClear" type="button">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></svg>
+          清空
+        </button>
+      </div>
+    </div>
+
+    <div class="log" id="log" role="log" aria-live="polite"><!--EMPTY_STATE--></div>
+
+    <div class="composer">
+      <div class="attach" id="attachList"></div>
+      <div class="composer__box">
+        <textarea id="input" rows="2" placeholder="同水喉讲两句……停水、水费、报修都可以" aria-label="输入想同水喉讲嘅说话"></textarea>
+        <div class="composer__row">
+          <button class="icon-btn" id="btnFile" type="button" title="上传文件 · 水费单 / 停水通知" aria-label="上传文件">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 3v5h5"/><path d="M6 3h8l5 5v13H6z"/></svg>
+            <span class="icon-btn__label">文件</span>
+          </button>
+          <button class="icon-btn" id="btnMic" type="button" title="语音输入" aria-label="语音输入" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+            <span class="icon-btn__label">语音</span>
+          </button>
+          <button class="icon-btn" id="btnSearch" type="button" aria-pressed="true" title="联网搜索 · deepseek_web_search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span class="icon-btn__label">联网</span>
+          </button>
+          <button class="icon-btn" id="btnThink" type="button" aria-pressed="true" title="深度思考 · thinking">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5V16h8v-2.5A6 6 0 0 0 12 3Z"/></svg>
+            <span class="icon-btn__label">谂深啲</span>
+          </button>
+          <a class="hotline-btn" id="btnHotline" href="tel:076996968" role="button" aria-label="转人工 · 客服热线 0769-96968" title="转人工 · 客服热线 0769-96968">
+            <span class="hotline-btn__ring" aria-hidden="true"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 3.5h3l1.5 4-2 1.4a12 12 0 0 0 5.9 5.9l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>
+            <span>转人工</span>
+          </a>
+          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.md,image/*" hidden>
+          <button class="send" id="sendBtn" type="button" disabled>
+            发送
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="composer__hint">
+        <span>Enter 发送 · Shift + Enter 换行 · 按 / 直接开口</span>
+        <span id="apiHint">录播演示：剧本由本地载入，未发送任何真实请求</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ======================================================== 收纳目录 -->
+<div class="drawer" id="drawer" hidden>
+  <div class="drawer__bg" data-close></div>
+  <aside class="drawer__panel" aria-label="今日节目表与饮水打卡">
+    <div class="drawer__head">
+      <div class="brandcard">
+        <img src="__LOGO_STACK__" alt="大水喉">
+        <div class="brandcard__freq">96968<small>街坊频道</small></div>
+        <span class="brandcard__live"><i></i>ON AIR</span>
+      </div>
+      <button class="drawer__close" type="button" data-close aria-label="收起目录">×</button>
+    </div>
+    <div class="drawer__body">
+      <div class="rail__title">今日节目表 <span class="label-en">SCHEDULE</span></div>
+      <ul class="sched" id="schedule">
+        <li><button type="button" data-prompt="今日东莞天气点样？使唔使带遮？"><time>06:00</time><span><b>早晨，街坊</b><span>天气 + 用水提示</span></span></button></li>
+        <li><button type="button" data-prompt="东城今晚会唔会停水？" aria-current="true"><time>09:00</time><span><b>搜搜问问</b><span>联网搜索 · 实时资讯</span></span></button></li>
+        <li><button type="button" data-prompt="点解旧楼水压会越嚟越细？"><time>12:00</time><span><b>谂深一层</b><span>深度思考 · 复杂问题</span></span></button></li>
+        <li><button type="button" data-prompt="三点几啦，有咩贴士提我饮多杯水？"><time>15:00</time><span><b>三点几啦</b><span>饮水提醒 · 街坊段子</span></span></button></li>
+        <li><button type="button" data-prompt="帮我睇下呢张水费单点解贵咗"><time>18:00</time><span><b>文件落水</b><span>文件解析 · 账单通知</span></span></button></li>
+        <li><button type="button" data-prompt="读畀我听：今晚嘅节水贴士"><time>21:00</time><span><b>夜话水喉</b><span>朗读 · 语音陪伴</span></span></button></li>
+      </ul>
+      <div class="drinks" id="drinks" title="点一下打卡">
+        <div class="drinks__head">今日饮水量 <em id="drinkCount">3/8</em></div>
+        <div class="drinks__cups"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+        <small>点一下水杯打卡 · 水喉提你饮够八杯</small>
+      </div>
+      <p class="drawer__note">目录会随手收起；撳节目就会自动返去对话。</p>
+    </div>
+  </aside>
+</div>
+
+<!-- ======================================================== 大水喉动画 -->
+<div class="reel" id="reel" hidden>
+  <div class="reel__bg" data-reel-close></div>
+  <div class="reel__stage" role="dialog" aria-modal="true" aria-label="大水喉动画">
+    <video id="reelVideo" src="assets/video/dashuihou-logo-9x16.mp4" playsinline preload="none"></video>
+    <button class="reel__skip" type="button" data-reel-close>跳过</button>
+  </div>
+</div>
+
+
+<!-- ======================================================== 转人工 · 快捷拨号 -->
+<div class="dialer" id="dialer" hidden>
+  <div class="dialer__bg" data-close></div>
+  <div class="dialer__sheet" role="dialog" aria-modal="true" aria-labelledby="dialerTitle" tabindex="-1">
+    <span class="dialer__grip" aria-hidden="true"></span>
+    <div class="dialer__head">
+      <h3 id="dialerTitle">转人工</h3>
+      <button class="dialer__close" type="button" data-close aria-label="关闭">×</button>
+    </div>
+    <a class="dialer__num" href="tel:076996968" aria-label="拨打客服热线 0769-96968">
+      <small>客服热线</small>
+      <b>0769-96968</b>
+    </a>
+    <p class="dialer__meta">东莞市水务环境集团 · 供水服务热线 · 24 小时有人听</p>
+    <div class="dialer__acts">
+      <a class="dialer__call" href="tel:076996968">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 3.5h3l1.5 4-2 1.4a12 12 0 0 0 5.9 5.9l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z"/></svg>
+        立即拨打
+      </a>
+      <button class="dialer__cancel" type="button" data-close>取消</button>
+    </div>
+    <div class="dialer__foot">
+      <button class="dialer__copy" type="button" id="dialerCopy">复制号码</button>
+      <span>撳「立即拨打」会打开手机嘅电话 App，喺底端弹出快捷拨号界面。</span>
+    </div>
+  </div>
+</div>
+<!-- ======================================================== 设置弹窗 -->
+<div class="modal" id="settingsModal" hidden>
+  <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+    <div class="modal__head">
+      <div>
+        <h3 id="setTitle">调频</h3>
+        <p>设定水喉FM 嘅发声方式</p>
+      </div>
+      <button class="modal__close" id="btnCloseSettings" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <div class="field">
+      <label>播出模式</label>
+      <div class="seg">
+        <button type="button" data-mode="demo" aria-pressed="true"><b>录播</b><span>本地剧本 · 免 Key</span></button>
+        <button type="button" data-mode="live" aria-pressed="false"><b>真实频道</b><span>直连 api.deepseek.com</span></button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="apiKey">DeepSeek API Key</label>
+      <input type="password" id="apiKey" placeholder="sk-…" autocomplete="off" spellcheck="false">
+      <small>Key 只会存喺你部机嘅 localStorage，由浏览器直接发送去 api.deepseek.com，唔会经第三方服务器。粤语声线候选与试听放进下面「声线试镜」一栏。</small>
+    </div>
+
+    <div class="field">
+      <label for="voiceSel">朗读声线</label>
+      <select id="voiceSel">
+        <option value="stella">stella · 海星（女声，默认）</option>
+        <option value="tide">tide · 暗潮（男声）</option>
+      </select>
+      <label class="check"><input type="checkbox" id="autoSpeak"> 答完自动朗读</label>
+    </div>
+
+    <div class="field">
+      <label>声线试镜 · D01</label>
+      <a class="setting-link" href="voice.html">
+        <span class="setting-link__ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 15a3 3 0 0 0 3-3V7a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3Z"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/></svg>
+        </span>
+        <span class="setting-link__txt">
+          <b>粤语声线候选与试听</b>
+          <small>两条入围声线 · 30 秒试镜 · 音高坐标 · 盲测</small>
+        </span>
+        <span class="setting-link__go">打开 →</span>
+      </a>
+    </div>
+
+
+    <div class="field">
+      <label>导入对话历史</label>
+      <div class="importrow">
+        <button class="btn btn--sm" type="button" id="btnImport">选择 DeepSeek 导出文件…</button>
+        <input type="file" id="importFile" accept=".json,.txt,application/json" hidden>
+      </div>
+      <small id="importHint">一键导入 DeepSeek 网页版导出嘅对话记录（JSON）。只喺你部机解析，唔会上传。</small>
+    </div>
+
+
+    <div class="modal__foot">
+      <button class="btn btn--primary btn--sm" id="btnSaveSettings" type="button">保存设定</button>
+      <span style="font-size:11.5px;opacity:.62">模型 deepseek-flash · 安全播出 high</span>
+    </div>
+
+    <div class="modal__note">
+      录播模式下，剧本对白、来源卡片同数字都系演示内容，唔代表真实查询结果。切去真实频道后，所有回答由 DeepSeek API 即场生成，并会按《大水喉世界观》嘅语气规则作答。
+      <br><br><b style="font-weight:400;color:var(--ink)">出品</b>：「大水喉」家族 —— 东莞水务环境集团旗下文创品牌。<br>
+      <b style="font-weight:400;color:var(--ink)">主播</b>：大水喉（家族 IP 角色、品牌官方发言人，目前唯一主播）。
+      <br><a href="README.md" target="_blank" rel="noopener" style="color:var(--blue);border-bottom:1.5px solid currentColor">设计说明</a>
+      · <a href="https://api-docs.deepseek.com/zh-cn/guides/build_a_chatbot" target="_blank" rel="noopener" style="color:var(--blue);border-bottom:1.5px solid currentColor">DeepSeek 构建 Chatbot 指南 ↗</a>
+      · © 2025 DASHUIHOU
+    </div>
+  </div>
+</div>
+
+<!--INLINE_JS-->
+</body>
+</html>
+
+
+
